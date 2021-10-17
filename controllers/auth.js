@@ -4,16 +4,14 @@ const User = require("../models/User");
 const asyncErrorWrapper = require("express-async-handler")
 
 const register = asyncErrorWrapper(async (req,res,next) => {
-    const name = "cemal deniz";
-    const email = "cemal@gmail.com";
-    const password ="123";
 
     //async await
-
+    const {name,email,password,role} =req.body;
         const user = await User.create({
         name,
         email,
-        password
+        password,
+        role
     });
 
     res.status(200).json({
