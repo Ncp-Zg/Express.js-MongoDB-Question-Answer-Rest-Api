@@ -5,7 +5,7 @@ const router = express.Router();
 
 
 router.post("/register",register)
-router.post("/error",errorTest)
+router.get("/error",errorTest)
 
 
 module.exports = router;

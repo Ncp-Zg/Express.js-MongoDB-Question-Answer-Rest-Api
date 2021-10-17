@@ -1,15 +1,15 @@
 const CustomError = require("../helpers/error/CustomError");
 const customErrorHandler = require("../middlewares/errors/customErrorHandler");
 const User = require("../models/User");
+const asyncErrorWrapper = require("express-async-handler")
 
-const register = async (req,res,next) => {
+const register = asyncErrorWrapper(async (req,res,next) => {
     const name = "cemal deniz";
     const email = "cemal@gmail.com";
     const password ="123";
 
     //async await
 
-    try {
         const user = await User.create({
         name,
         email,
@@ -20,11 +20,9 @@ const register = async (req,res,next) => {
         success:true,
         data :user
     })
-    } catch (error) {
-        return next(error)
-    }
+
     
-}
+})
 
 const errorTest = (req,res,next)=>{
     return next(new TypeError("CustomError Message",400))
