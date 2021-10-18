@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs")
 const jwt=require( "jsonwebtoken")
 const Schema=mongoose.Schema;
+const crypto = require("crypto")
 
 
 const UserSchema = new Schema({
@@ -53,6 +54,12 @@ const UserSchema = new Schema({
     blocked : {
         type : Boolean,
         default : false
+    },
+    resetPasswordToken : {
+        type: String
+    },
+    resetPasswordExpire:{
+        type:Date
     }
 });
 //UserSchema Methods
@@ -69,6 +76,22 @@ UserSchema.methods.generateJwtFromUser = function(){
     return token;
 }
 
+
+UserSchema.methods.getResetPasswordTokenFromUser = function (){
+    const randomHexString = crypto.randomBytes(15).toString("hex");
+    const{RESET_PASSWORD_EXPIRE} = process.env;
+
+
+const resetPasswordToken = crypto
+.createHash("SHA256")
+.update(randomHexString)
+.digest("hex")
+
+this.resetPasswordToken = resetPasswordToken;
+this.resetPasswordExpire = Date.now() +parseInt(RESET_PASSWORD_EXPIRE)
+
+
+}
 //Pre Hooks
 UserSchema.pre("save",function(next){
     //Parola Degisme
