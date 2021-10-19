@@ -1,5 +1,7 @@
 const express = require("express");
+const { blockUser } = require("../controllers/admin");
 const { getAdminAccess, getAccessToRoute } = require("../middlewares/authorization/auth");
+const { checkUserexist } = require("../middlewares/database/databaseErrorHelpers");
 
 const router = express.Router();
 
@@ -7,12 +9,8 @@ const router = express.Router();
 //Delete User
 router.use([getAccessToRoute ,getAdminAccess])
 
-router.get("/",(req,res,next)=>{
-    res.status(200).json({
-        succes:true,
-        message:"AdminPage"
-    })
-})
+
+router.get("/block/:id",checkUserexist,blockUser)
 
 
 module.exports=router;
