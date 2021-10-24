@@ -5,7 +5,8 @@ const {
   getSingleQuestion,
   editQuestion,
   deleteQuestion,
-  likeQuestion
+  likeQuestion,
+  undolikeQuestion
 } = require("../controllers/question");
 const {
   getAccessTokenFromHeader,
@@ -23,6 +24,7 @@ const router = express.Router();
 
 
 router.get("/:id/like",[getAccessToRoute,checkQuestionexist],likeQuestion)
+router.get("/:id/undo_like",[getAccessToRoute,checkQuestionexist],undolikeQuestion)
 
 router.get("/", getAllQuestions);
 router.get("/:id", checkQuestionexist, getSingleQuestion);
