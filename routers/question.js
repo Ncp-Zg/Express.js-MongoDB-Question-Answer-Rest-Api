@@ -4,7 +4,8 @@ const {
   getAllQuestions,
   getSingleQuestion,
   editQuestion,
-  deleteQuestion
+  deleteQuestion,
+  likeQuestion
 } = require("../controllers/question");
 const {
   getAccessTokenFromHeader,
@@ -19,6 +20,9 @@ const {
 } = require("../middlewares/database/databaseErrorHelpers");
 
 const router = express.Router();
+
+
+router.get("/:id/like",[getAccessToRoute,checkQuestionexist],likeQuestion)
 
 router.get("/", getAllQuestions);
 router.get("/:id", checkQuestionexist, getSingleQuestion);

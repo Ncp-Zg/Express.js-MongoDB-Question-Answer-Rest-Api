@@ -28,7 +28,14 @@ const QuestionSchema = new Schema({
         type:mongoose.Schema.ObjectId,
         required : true,
         ref : "User"
+    },
+    likes : [
+        {
+            
+        type:mongoose.Schema.ObjectId,
+        ref:"User"
     }
+    ]
 });
 QuestionSchema.pre("save",function(next){
     if(!this.isModified("title")){
