@@ -3,7 +3,8 @@ const {
   askNewQuestion,
   getAllQuestions,
   getSingleQuestion,
-  editQuestion
+  editQuestion,
+  deleteQuestion
 } = require("../controllers/question");
 const {
   getAccessTokenFromHeader,
@@ -26,6 +27,11 @@ router.put(
   "/:id/edit",
   [getAccessToRoute, checkQuestionexist, getQuestionOwnerAccess],
   editQuestion
+);
+router.delete(
+  "/:id/delete",
+  [getAccessToRoute, checkQuestionexist, getQuestionOwnerAccess],
+  deleteQuestion
 );
 
 module.exports = router;
