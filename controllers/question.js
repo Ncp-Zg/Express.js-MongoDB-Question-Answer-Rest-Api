@@ -22,6 +22,11 @@ const getAllQuestions = asyncErrorWrapper(async (req,res,next)=>{
     // console.log(req.query.search)
 
     let query = Question.find();
+    const populate = true;
+    const populateObject = {
+        path:"user",
+        select:"name profile_image"
+    }
     if(req.query.search){
         const searchObject ={};
         //title searchValue
@@ -31,6 +36,9 @@ const getAllQuestions = asyncErrorWrapper(async (req,res,next)=>{
 
         query = query.where(searchObject);
         //Question.find().where({title:"mongodb" })
+    }
+    if(populate){
+        query=query.populate(populateObject);
     }
 
     const questions = await query
