@@ -1,0 +1,37 @@
+[
+  {
+    "_id": "5e30275d141401679e3832a1",
+    "role": "admin",
+    "name": "Admin",
+    "email": "admin@gmail.com",
+    "password": "1234567"
+  },
+  {
+    "_id": "5e2866280427c1ff0dd2b5cb",
+    "role": "user",
+    "name": "Ahmet Mehmet",
+    "email": "ahmet@gmail.com",
+    "password": "1234567"
+  },
+  {
+    "_id": "5e300f0ffbb6b05ee9037fd2",
+    "role": "user",
+    "name": "Cemal Deniz",
+    "email": "cemal@gmail.com",
+    "password": "1234567"
+  },
+  {
+    "_id": "5e2effcccbdf585842cdb6ce",
+    "role": "user",
+    "name": "Ayse Ayse",
+    "email": "ayse@gmail.com",
+    "password": "1234567"
+  },
+  {
+    "_id": "5e302931752a052e11096e96",
+    "role": "user",
+    "name": "Kemal Kemal",
+    "email": "kemal@gmail.com",
+    "password": "1234567"
+  }
+]
