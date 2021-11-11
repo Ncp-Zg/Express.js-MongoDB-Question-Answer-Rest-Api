@@ -22,13 +22,22 @@ const {
   checkQuestionexist,
 } = require("../middlewares/database/databaseErrorHelpers");
 
+const questionQueryMiddleWare = require("../middlewares/query/questionQueryMiddleware");
+const Question = require("../models/Question");
+
+
 const router = express.Router();
 
 
 router.get("/:id/like",[getAccessToRoute,checkQuestionexist],likeQuestion)
 router.get("/:id/undo_like",[getAccessToRoute,checkQuestionexist],undolikeQuestion)
 
-router.get("/", getAllQuestions);
+router.get("/", questionQueryMiddleWare(Question,{
+  population : {
+    path: "user",
+    select :"name profile_image"
+  }
+}) , getAllQuestions);
 router.get("/:id", checkQuestionexist, getSingleQuestion);
 router.post("/ask", getAccessToRoute, askNewQuestion);
 router.put(
