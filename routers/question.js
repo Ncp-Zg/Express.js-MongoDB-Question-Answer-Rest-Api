@@ -24,7 +24,7 @@ const {
 
 const questionQueryMiddleWare = require("../middlewares/query/questionQueryMiddleware");
 const Question = require("../models/Question");
-
+const answerQueryMiddleware = require("../middlewares/query/answerQueryMiddleware")
 
 const router = express.Router();
 
@@ -38,7 +38,19 @@ router.get("/", questionQueryMiddleWare(Question,{
     select :"name profile_image"
   }
 }) , getAllQuestions);
-router.get("/:id", checkQuestionexist, getSingleQuestion);
+router.get("/:id", checkQuestionexist,answerQueryMiddleware(Question,{
+  population : [
+    {
+      path:"user",
+      select : "name profile_image"
+    },
+    {
+      path: "answers",
+      select:"content"
+    }
+     
+  ]
+}), getSingleQuestion);
 router.post("/ask", getAccessToRoute, askNewQuestion);
 router.put(
   "/:id/edit",

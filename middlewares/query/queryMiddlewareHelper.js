@@ -32,7 +32,7 @@ const questionSortHelper = (query,req) => {
     
 }
 
-const paginationHelper = async (model, query, req) => {
+const paginationHelper = async (totalDoc, query, req) => {
     const page = parseInt(req.query.page) || 1;
     const limit = parseInt(req.query.limit) || 5;
 
@@ -40,7 +40,7 @@ const paginationHelper = async (model, query, req) => {
     const endIndex = page * limit;
 
     const pagination = {};
-    const total = await model.countDocuments();
+    const total = totalDoc;
     if (startIndex > 0) {
       pagination.previous = {
         page: page - 1,
@@ -55,8 +55,10 @@ const paginationHelper = async (model, query, req) => {
     }
 
     return {
-        query : query.skip(startIndex).limit(limit),
-        pagination : pagination
+        query : query === undefined ? undefined : query.skip(startIndex).limit(limit),
+        pagination : pagination,
+        startIndex,
+        limit
     }
 }
 module.exports = {
